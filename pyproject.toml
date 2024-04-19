@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[project]
+name = "f1tenth_rl"
+version = "0.1.0"
+description = "Reinforcement Learning Guided MPPI"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib >=3.8.3",
+    "fire >= 0.5.0",
+    "numpy >= 1.25",
+    "gymnasium >= 0.29.1",
+    "torch==2.00",
+    "torchvision==0.15.1",
+    "tensorboard==2.16.2",
+    "stable-baselines3==2.3.0",
+    "wandb==0.16.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pysen",
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+]
