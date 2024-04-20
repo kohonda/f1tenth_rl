@@ -1,6 +1,11 @@
 # F1Tenth RL Example
 
-This is a simple example of reinforcement learning for the F1Tenth racing car. The environment is based on the [F1Tenth Gym](https://github.com/f1tenth/f1tenth_gym)
+This is a simple example of reinforcement learning by [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) for the F1Tenth racing car. The environment is based on the [F1Tenth Gym](https://github.com/f1tenth/f1tenth_gym)
+
+<p align="center">
+  <img src="./media/sac.gif" width="500" alt="cartpole">
+</p>
+
 
 ## Tested Native Environment
 - Ubuntu Focal 20.04 (LTS)
@@ -44,10 +49,10 @@ sudo systemctl restart docker
 ### Setup with Docker
 
 ```bash
-# build container (without GPU support)
-make build-cpu
-# or build container (with GPU support)
-# make build-gpu
+# build container (with GPU support)
+make build-gpu
+# or build container (without GPU support)
+# make build-cpu
 ```
 
 Open remote container via Vscode (Recommend)
@@ -56,10 +61,10 @@ Open remote container via Vscode (Recommend)
 Then, you can skip the following commands
 
 ```bash
-# [Optional] Run container via terminal (without GPU support)
-make bash-cpu
 # Or Run container via terminal (with GPU support)
-# make bash-gpu
+make bash-gpu
+# [Optional] Run container via terminal (without GPU support)
+# make bash-cpu
 ```
 
 ### How to train and run
