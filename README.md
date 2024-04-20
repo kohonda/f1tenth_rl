@@ -1,6 +1,6 @@
 # F1Tenth RL Example
 
-This is a simple example of reinforcement learning for the F1Tenth racing car. The environment is based on the [F1Tenth Gym]()
+This is a simple example of reinforcement learning for the F1Tenth racing car. The environment is based on the [F1Tenth Gym](https://github.com/f1tenth/f1tenth_gym)
 
 ## Tested Native Environment
 - Ubuntu Focal 20.04 (LTS)
