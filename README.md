@@ -1,6 +1,6 @@
 # F1Tenth RL Example
 
-Reinforcement Learning Policy Guided Model Predictive Path Integral Control
+This is a simple example of reinforcement learning for the F1Tenth racing car. The environment is based on the [F1Tenth Gym]()
 
 ## Tested Native Environment
 - Ubuntu Focal 20.04 (LTS)
@@ -64,31 +64,16 @@ make bash-cpu
 # make bash-gpu
 ```
 
-## Example
-
-### Run purepursuit
-
-```bash
-cd app
-python3 waypoint_follow.py
-```
-
-### Run MPPI
-
-```bash
-cd app
-python3 mppi_follow.py
-```
-
-### Train and Run RL 
+### How to train and run
 
 Train (Need your wandb)
 ```bash
 cd app
 python3 train.py
 ```
+Then, you can find the trained model in `scripts/models/`
 
-Run
+Run (Need your trained model)
 ```bash
 cd app
 python3 run.py <path_to_model>
