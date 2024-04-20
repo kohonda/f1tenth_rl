@@ -4,7 +4,7 @@ This is a simple example of reinforcement learning for the F1Tenth racing car. T
 
 ## Tested Native Environment
 - Ubuntu Focal 20.04 (LTS)
-- with only CPU
+- NVIDIA Driver 510 or later due to PyTorch 2.x
 
 ## Installation
 
@@ -43,8 +43,6 @@ sudo systemctl restart docker
 
 ### Setup with Docker
 
-NOTE: Currently, tested on Ubuntu 20.04 with CPU-only.
-
 ```bash
 # build container (without GPU support)
 make build-cpu
@@ -66,15 +64,15 @@ make bash-cpu
 
 ### How to train and run
 
-Train (Need your wandb)
+Train 
 ```bash
-cd app
+cd scripts
 python3 train.py
 ```
 Then, you can find the trained model in `scripts/models/`
 
 Run (Need your trained model)
 ```bash
-cd app
+cd scripts
 python3 run.py <path_to_model>
 ```
