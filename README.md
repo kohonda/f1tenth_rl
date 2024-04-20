@@ -3,7 +3,7 @@
 This is a simple example of reinforcement learning by [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) for the F1Tenth racing car. The environment is based on the [F1Tenth Gym](https://github.com/f1tenth/f1tenth_gym)
 
 <p align="center">
-  <img src="./media/sac.gif" width="500" alt="cartpole">
+  <img src="./media/sac.gif" width="300" alt="cartpole">
 </p>
 
 
