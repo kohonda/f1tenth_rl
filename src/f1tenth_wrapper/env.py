@@ -42,7 +42,7 @@ class F1TenthWrapper(gym.Env):
         # space definition
         self.action_space = self.core.action_space
         self.DIM_DEPTH = 18  # number of depth sensors used in the observation
-        self.DIM_OBS = 28
+        self.DIM_OBS = 29
         self.observation_space = gym.spaces.Box(
             low=-np.inf, high=np.inf, shape=(self.DIM_OBS,), dtype=np.float32
         )
@@ -50,6 +50,7 @@ class F1TenthWrapper(gym.Env):
         # inner variables
         self.prev_vels = np.zeros(3)
         self.prev_steer_angle = 0.0
+        self.prev_yaw = 0.0
         self._current_waypoint = np.zeros(2)
         self._current_index = 0
         self.prev_waypoint = np.zeros(2)
@@ -79,6 +80,7 @@ class F1TenthWrapper(gym.Env):
 
     def _take_over(self, original_obs, action):
         self.prev_steer_angle = action[0][0]
+        self.prev_yaw = original_obs["poses_theta"]
         self.prev_vels = np.array(
             [
                 original_obs["linear_vels_x"],
@@ -94,6 +96,7 @@ class F1TenthWrapper(gym.Env):
 
         self.prev_vels = np.zeros(3)
         self.prev_steer_angle = 0.0
+        self.prev_yaw = 0.0
         self._current_waypoint, self._current_index = self.calc_current_waypoint(
             original_obs
         )
@@ -113,6 +116,7 @@ class F1TenthWrapper(gym.Env):
         self.core.sync_env(original_env.unwrapped.core)
         self.prev_vels = original_env.unwrapped.prev_vels.copy()
         self.prev_steer_angle = original_env.unwrapped.prev_steer_angle
+        self.prev_yaw = original_env.unwrapped.prev_yaw
         self.prev_waypoint = original_env.unwrapped.prev_waypoint.copy()
 
     def calc_current_waypoint(self, original_obs):
@@ -152,6 +156,7 @@ class F1TenthWrapper(gym.Env):
         dy = self._waypoints[next_index, 1] - self._waypoints[index, 1]
         yaw_ref = np.arctan2(dy, dx)
         yaw_dev = yaw - yaw_ref
+        yaw_dev = np.arctan2(np.sin(yaw_dev), np.cos(yaw_dev))
 
         # disttances from depth sensors
         sparse_idx = np.linspace(
@@ -175,6 +180,10 @@ class F1TenthWrapper(gym.Env):
         # collision
         collisions = original_obs["collisions"]
 
+        # delta yaw
+        delta_yaw = yaw - self.prev_yaw
+        delta_yaw = np.arctan2(np.sin(delta_yaw), np.cos(delta_yaw))
+
         # set observation
         obs = np.ndarray(self.DIM_OBS, dtype=np.float32)
         obs[0] = vx
@@ -188,6 +197,7 @@ class F1TenthWrapper(gym.Env):
         obs[25] = self.prev_steer_angle
         obs[26] = path_curvature
         obs[27] = collisions[0]
+        obs[28] = delta_yaw  # add for kinematic model
 
         # chack inf or nan
         if np.any(np.isnan(obs)) or np.any(np.isinf(obs)):
